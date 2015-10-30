@@ -10,7 +10,7 @@ import UIKit
 
 class CustomPresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 2.5
     }
     
@@ -23,7 +23,7 @@ class CustomPresentAnimationController: NSObject, UIViewControllerAnimatedTransi
         let bounds = UIScreen.mainScreen().bounds
 //        toViewController.view.frame = CGRectOffset(finalFrameForVC, 0, bounds.size.height)
         toViewController.view.frame = CGRectOffset(finalFrameForVC, 0, -bounds.size.height)
-        containerView.addSubview(toViewController.view)
+        containerView!.addSubview(toViewController.view)
         
         UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .CurveLinear, animations: {
             fromViewController.view.alpha = 0.5

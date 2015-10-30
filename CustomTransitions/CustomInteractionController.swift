@@ -32,7 +32,7 @@ class CustomInteractionController: UIPercentDrivenInteractiveTransition {
             transitionInProgress = true
             navigationController.popViewControllerAnimated(true)
         case .Changed:
-            var const = CGFloat(fminf(fmaxf(Float(viewTranslation.x / 200.0), 0.0), 1.0))
+            let const = CGFloat(fminf(fmaxf(Float(viewTranslation.x / 200.0), 0.0), 1.0))
             shouldCompleteTransition = const > 0.5
             updateInteractiveTransition(const)
         case .Cancelled, .Ended:
@@ -43,7 +43,7 @@ class CustomInteractionController: UIPercentDrivenInteractiveTransition {
                 finishInteractiveTransition()
             }
         default:
-            println("Swift switch must be exhaustive, thus the default")
+            print("Swift switch must be exhaustive, thus the default")
         }
     }
 }
