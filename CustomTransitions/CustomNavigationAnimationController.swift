@@ -12,12 +12,12 @@ class CustomNavigationAnimationController: NSObject, UIViewControllerAnimatedTra
     
     var reverse: Bool = false
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 1.5
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView()!
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let toView = toViewController.view
