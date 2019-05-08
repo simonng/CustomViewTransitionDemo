@@ -18,32 +18,32 @@ class CustomInteractionController: UIPercentDrivenInteractiveTransition {
     
     func attachToViewController(viewController: UIViewController) {
         navigationController = viewController.navigationController
-        setupGestureRecognizer(viewController.view)
+        setupGestureRecognizer(view: viewController.view)
     }
     
     private func setupGestureRecognizer(view: UIView) {
-            view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "handlePanGesture:"))
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:")))
     }
     
     func handlePanGesture(gestureRecognizer: UIPanGestureRecognizer) {
-        let viewTranslation = gestureRecognizer.translationInView(gestureRecognizer.view!.superview!)
+        let viewTranslation = gestureRecognizer.translation(in: gestureRecognizer.view!.superview!)
         switch gestureRecognizer.state {
-        case .Began:
+        case .began:
             transitionInProgress = true
-            navigationController.popViewControllerAnimated(true)
-        case .Changed:
-            var const = CGFloat(fminf(fmaxf(Float(viewTranslation.x / 200.0), 0.0), 1.0))
+            navigationController.popViewController(animated: true)
+        case .changed:
+            let const = CGFloat(fminf(fmaxf(Float(viewTranslation.x / 200.0), 0.0), 1.0))
             shouldCompleteTransition = const > 0.5
-            updateInteractiveTransition(const)
-        case .Cancelled, .Ended:
+            update(const)
+        case .cancelled, .ended:
             transitionInProgress = false
-            if !shouldCompleteTransition || gestureRecognizer.state == .Cancelled {
-                cancelInteractiveTransition()
+            if !shouldCompleteTransition || gestureRecognizer.state == .cancelled {
+                cancel()
             } else {
-                finishInteractiveTransition()
+                finish()
             }
         default:
-            println("Swift switch must be exhaustive, thus the default")
+            print("Swift switch must be exhaustive, thus the default")
         }
     }
 }
